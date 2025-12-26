@@ -1,0 +1,22 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "server.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "server.js"
+        }
+    ],
+    "env": {
+        "PORT": "3000",
+        "MONGODB_URI": "@MONGODB_URI",
+        "JWT_SECRET": "@JWT_SECRET",
+        "CORS_ORIGIN": "@CORS_ORIGIN",
+        "GEMINI_API_KEY": "@GEMINI_API_KEY"
+    }
+}
