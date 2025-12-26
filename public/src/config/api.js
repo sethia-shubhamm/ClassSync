@@ -2,19 +2,10 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-// Create axios instance
+// Create axios instance with credentials
 const apiClient = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
-});
-
-// Add request interceptor to include token
-apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
+  withCredentials: true, // Send cookies with requests
 });
 
 export default apiClient;

@@ -38,15 +38,10 @@ const LoginPage = () => {
     }
     
     try {
-      const response = await axios.post(`${API_URL}/api/auth/login`, 
+      await axios.post(`${API_URL}/api/auth/login`, 
         { email, password }, 
         { withCredentials: true }
       );
-      
-      // Store token in localStorage
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-      }
       
       // Redirect to dashboard - it will handle routing to setup-timetable if needed
       navigate('/dashboard');

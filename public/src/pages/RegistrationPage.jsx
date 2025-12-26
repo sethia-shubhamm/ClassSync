@@ -57,16 +57,11 @@ const RegistrationPage = () => {
     }
 
     try {
-      const response = await axios.post(`${API_URL}/api/auth/register`, {
+      await axios.post(`${API_URL}/api/auth/register`, {
         name: formData.name,
         email: formData.email,
         password: formData.password,
       }, { withCredentials: true });
-      
-      // Store token if provided
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-      }
       
       setSuccess('Account created successfully! Redirecting to setup...');
       setTimeout(() => {

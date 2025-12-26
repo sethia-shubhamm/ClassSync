@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
@@ -27,8 +26,7 @@ const TimetableSetupPage = () => {
 
   const fetchTimetable = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/timetable`, {
-        withCredentials: true,
+      const response = await apiClient.get('/api/timetable', {
         validateStatus: (status) => status < 500,
       });
       
@@ -147,14 +145,13 @@ const TimetableSetupPage = () => {
 
     try {
       const endpoint = hasExistingTimetable 
-        ? `${API_URL}/api/timetable`
-        : `${API_URL}/api/timetable/setup`;
+        ? '/api/timetable'
+        : '/api/timetable/setup';
       
       const method = hasExistingTimetable ? 'put' : 'post';
       
-      await axios[method](endpoint, 
-        { timetable: validSubjects },
-        { withCredentials: true }
+      await apiClient[method](endpoint, 
+        { timetable: validSubjects }
       );
       
       setSuccess('Timetable updated successfully!');
