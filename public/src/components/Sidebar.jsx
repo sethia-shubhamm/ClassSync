@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ isOpen, subjects, onSubjectClick }) => {
+  const navigate = useNavigate();
+
   return (
     <>
       {/* Overlay */}
@@ -15,9 +18,9 @@ const Sidebar = ({ isOpen, subjects, onSubjectClick }) => {
       <div
         className={`fixed left-0 top-16 w-64 h-screen bg-white/10 backdrop-blur-md border-r border-white/20 z-40 transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
-        } sm:hidden`}
+        } sm:hidden flex flex-col`}
       >
-        <div className="p-6">
+        <div className="flex-1 p-6">
           <h2 className="text-xl font-bold text-white mb-6">Subjects</h2>
           <div className="space-y-2">
             {subjects.map((subject) => (
@@ -30,6 +33,16 @@ const Sidebar = ({ isOpen, subjects, onSubjectClick }) => {
               </button>
             ))}
           </div>
+        </div>
+        
+        {/* Profile Option at Bottom */}
+        <div className="p-6 border-t border-white/20">
+          <button
+            onClick={() => navigate('/profile')}
+            className="w-full px-4 py-3 bg-purple-500 hover:bg-purple-600 rounded-lg text-white font-semibold transition"
+          >
+            👤 Profile
+          </button>
         </div>
       </div>
     </>
