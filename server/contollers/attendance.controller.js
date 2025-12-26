@@ -1,6 +1,6 @@
 import Attendance from '../models/attendance.model.js';
 import Timetable from '../models/timetable.model.js';
-import asyncHandler from '../utils/asynchandler.js';
+import asyncHandler from '../utils/asyncHandler.js';
 
 export const getDashboard = asyncHandler(async (req, res) => {
     const userId = req.user.id;

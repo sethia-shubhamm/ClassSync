@@ -1,7 +1,7 @@
 import Timetable from '../models/timetable.model.js';
 import Attendance from '../models/attendance.model.js';
 import User from '../models/user.model.js';
-import asyncHandler from '../utils/asynchandler.js';
+import asyncHandler from '../utils/asyncHandler.js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import fs from 'fs';
 
