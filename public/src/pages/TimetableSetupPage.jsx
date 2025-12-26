@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
-import { API_URL } from '../config/api';
+import apiClient, { API_URL } from '../config/api';
 
 const TimetableSetupPage = () => {
   const navigate = useNavigate();
@@ -65,15 +65,9 @@ const TimetableSetupPage = () => {
       const formData = new FormData();
       formData.append('timetableImage', file);
 
-      const response = await axios.post(
-        `${API_URL}/api/timetable/scan`,
-        formData,
-        { 
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          }
-        }
+      const response = await apiClient.post(
+        '/api/timetable/scan',
+        formData
       );
 
       if (response.data.subjects && Array.isArray(response.data.subjects)) {

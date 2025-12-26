@@ -212,8 +212,7 @@ export const scanTimetable = asyncHandler(async (req, res) => {
             }
         }
 
-        // Clean up the image file
-        fs.unlinkSync(req.file.path);
+        // No need to clean up - using memory storage
 
         res.json({
             message: `Timetable scanned successfully! (${user.uploadCount}/2 uploads used)`,
