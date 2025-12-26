@@ -96,17 +96,11 @@ export const scanTimetable = asyncHandler(async (req, res) => {
     // Check upload count
     const user = await User.findById(userId);
     if (!user) {
-        if (req.file && fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path);
-        }
         return res.status(404).json({ message: 'User not found' });
     }
 
     // Check if user has already uploaded 2 times
     if (user.uploadCount >= 2) {
-        if (req.file && fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path);
-        }
         return res.status(400).json({ message: '❌ Upload limit reached! You can only upload timetable 2 times. Please edit your timetable manually if needed.' });
     }
 
@@ -114,9 +108,8 @@ export const scanTimetable = asyncHandler(async (req, res) => {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
 
-        // Read the image file
-        const imageBuffer = fs.readFileSync(req.file.path);
-        const base64Image = imageBuffer.toString('base64');
+        // Use buffer directly from memory
+        const base64Image = req.file.buffer.toString('base64');
         const mimeType = req.file.mimetype;
 
         const prompt = `Please analyze ONLY the main timetable grid (NOT the reference table at the bottom) and extract the subjects and their scheduled days.
