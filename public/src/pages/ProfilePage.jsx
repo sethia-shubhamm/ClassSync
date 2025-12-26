@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
-import API_URL from '../config/api';
+import { API_URL } from '../config/api';
 
 const ProfilePage = () => {
   const navigate = useNavigate();

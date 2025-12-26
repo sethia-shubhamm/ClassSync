@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import API_URL from '../config/api';
+import { API_URL } from '../config/api';
 
 const SubjectDetailPage = () => {
   const { subjectId } = useParams();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import API_URL from '../config/api';
+import { API_URL } from '../config/api';
 
 const RegistrationPage = () => {
   const [formData, setFormData] = useState({
@@ -57,11 +57,16 @@ const RegistrationPage = () => {
     }
 
     try {
-      await axios.post(`${API_URL}/api/auth/register`, {
+      const response = await axios.post(`${API_URL}/api/auth/register`, {
         name: formData.name,
         email: formData.email,
         password: formData.password,
       }, { withCredentials: true });
+      
+      // Store token if provided
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+      }
       
       setSuccess('Account created successfully! Redirecting to setup...');
       setTimeout(() => {

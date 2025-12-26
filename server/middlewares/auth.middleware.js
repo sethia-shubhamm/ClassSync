@@ -3,7 +3,15 @@ import User from '../models/user.model.js';
 
 export const authMiddleware = async (req, res, next) => {
     try {
-        const token = req.cookies.token;
+        let token = req.cookies.token;
+        
+        // If no cookie, check Authorization header
+        if (!token) {
+            const authHeader = req.headers.authorization;
+            if (authHeader && authHeader.startsWith('Bearer ')) {
+                token = authHeader.slice(7); // Remove 'Bearer ' prefix
+            }
+        }
 
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized - No token' });

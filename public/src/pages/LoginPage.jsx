@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import API_URL from '../config/api';
+import { API_URL } from '../config/api';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -38,10 +38,15 @@ const LoginPage = () => {
     }
     
     try {
-      await axios.post(`${API_URL}/api/auth/login`, 
+      const response = await axios.post(`${API_URL}/api/auth/login`, 
         { email, password }, 
         { withCredentials: true }
       );
+      
+      // Store token in localStorage
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+      }
       
       // Redirect to dashboard - it will handle routing to setup-timetable if needed
       navigate('/dashboard');
